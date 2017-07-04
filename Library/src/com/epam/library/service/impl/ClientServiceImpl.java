@@ -10,7 +10,7 @@ import com.epam.library.service.exception.ServiceException;
 public class ClientServiceImpl implements ClientService {
 
 	@Override
-	public void singIn(String login, String password)  throws ServiceException{
+	public void signIn(String login, String password)  throws ServiceException{
 		
 		if(login == null || login.isEmpty()){
 			throw new ServiceException("Incorrect login");
@@ -21,13 +21,14 @@ public class ClientServiceImpl implements ClientService {
 			UserDAO userDAO = daoObjectFactory.getUserDAO();
 			userDAO.singIn(login, password);
 		} catch (DAOException e) {
-			System.out.println(e.getMessage());
-		}
+//			System.out.println(e.getMessage());
+			throw new ServiceException(e.getMessage());
+		}		
 
 	}
 
 	@Override
-	public void singOut(String login) throws ServiceException{
+	public void signOut(String login) throws ServiceException{	
 		// TODO написать реализацию
 	}
 

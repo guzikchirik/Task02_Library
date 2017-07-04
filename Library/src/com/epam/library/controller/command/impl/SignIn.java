@@ -19,7 +19,7 @@ public class SignIn implements Command {
 		ServiceFactory serviceFactory = ServiceFactory.getInstance();
 		ClientService clientService = serviceFactory.getClientService();
 		try {
-			clientService.singIn(login, password);
+			clientService.signIn(login, password);
 			response = "Welcom!";
 		} catch (ServiceException e) {
 			// TODO Write log

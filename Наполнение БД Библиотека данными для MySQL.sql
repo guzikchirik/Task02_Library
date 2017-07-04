@@ -56,12 +56,12 @@ VALUES
 (7, 2),
 (7, 5);
 
-INSERT INTO `users` (`u_id`, `u_login`, `u_password`, `u_access`)
+INSERT INTO `users` (`u_id`, `u_login`, `u_password`, `u_access`, `u_signIn`)
 VALUES
-(1, 'Иван','password1', 'N'),
-(2, 'Петя','password2', 'U'),
-(3, 'Сёма','password3', 'A'),
-(4, 'Anton','password4', 'SA');
+(1, 'Иван','password1', 'N', 'OUT'),
+(2, 'Петя','password2', 'U', 'OUT'),
+(3, 'Сёма','password3', 'A', 'OUT'),
+(4, 'Anton','password4', 'SA', 'OUT');
 
 INSERT INTO `subscriptions` (`sb_id`, `u_id`, `b_id`, `sb_start`, `sb_finish`, `sb_is_active`)
 VALUES

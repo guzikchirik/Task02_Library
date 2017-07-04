@@ -12,24 +12,33 @@ public class SQLUserDAO implements UserDAO {
 	DataBaseTools dataBaseTools = DataBaseTools.getInstance();
 
 	@Override
-	public void singIn(String login, String password) throws DAOException{
-		String request = "SELECT `u_id`, `u_login` FROM `users`";	
+	public void singIn(String login, String password) throws DAOException{		
+		String request = "SELECT `u_id`, `u_login`, `u_password`, `u_access`, `u_signIn` FROM `users`";	
+		String query; 
 		ResultSet resultSet = dataBaseTools.getDBData(request);	
 		
 		try {
-			while(resultSet.next()){
-				if(login.equals(resultSet.getString(1))&&password.equals(resultSet.getString(2))){
-					System.out.println("true");
-				}else{
-					System.out.println("false");
+			
+				while(resultSet.next()){
+					if("OUT".equals(resultSet.getString(5))){
+						if(login.equals(resultSet.getString(2))&&password.equals(resultSet.getString(3))){
+							query = "UPDATE users SET u_signIn='IN' WHERE u_id = "+resultSet.getInt(1)+"";
+							dataBaseTools.changeDBData(query);
+						}				
+					}else{
+						if(login.equals(resultSet.getString(2))&&password.equals(resultSet.getString(3))){
+//							System.out.println("User already SignIn!");
+							throw new DAOException("User already SignIn!");
+							
+						}
+					}
 				}
-				
-			}
+			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}		
 	}
 
 	@Override
@@ -37,7 +46,7 @@ public class SQLUserDAO implements UserDAO {
 		
 		String request = "SELECT  `u_login`, `u_password` FROM `users`";
 		String query = "INSERT INTO `users` (`u_login`, `u_password`, `u_access`) VALUES ('"+ user.getLogin() +"', '" + user.getPassword() +"','U')";
-		ResultSet resultSet = dataBaseTools.getDBData(request);	//TODO Тут скорее всего нужно сначала добавлять логин и пароль, а потом только имя и фамилию юзера 
+		ResultSet resultSet = dataBaseTools.getDBData(request);	
 		try {
 			while(resultSet.next()){
 				if(user.getLogin().equals(resultSet.getString(1))){					

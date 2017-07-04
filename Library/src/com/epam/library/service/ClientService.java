@@ -4,7 +4,7 @@ import com.epam.library.bean.User;
 import com.epam.library.service.exception.ServiceException;
 
 public interface ClientService {
-	void singIn(String login, String password) throws ServiceException;
-	void singOut(String login) throws ServiceException;
+	void signIn(String login, String password) throws ServiceException;
+	void signOut(String login) throws ServiceException;
 	void registration(User user) throws ServiceException;	
 }

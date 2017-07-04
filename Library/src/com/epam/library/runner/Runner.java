@@ -7,6 +7,8 @@ public class Runner {
 
 	public static void main(String[] args) {	
 		String registration = "REGISTRATION";
+		String signIn = "sign_in";
+		String signOut = "sign_out";
 		String showAllBooks = "show_all_books";
 		String addBook = "add_book";
 		
@@ -19,7 +21,10 @@ public class Runner {
 		int year = 2017;
 		int quantity = 10;
 //		String request = showAllBooks+" "+login+" "+password;
-		String request = addBook+" "+title+" "+author+" "+genre+" "+year+" "+quantity;
+//		String request = addBook+" "+title+" "+author+" "+genre+" "+year+" "+quantity;
+//		String request = registration+" "+login+" "+password;
+//		String request = signIn+" "+login+" "+password;
+		String request = signOut+" "+login;
 		Controller contr = new Controller();
 		System.out.println(contr.executeTask(request));
 	}
