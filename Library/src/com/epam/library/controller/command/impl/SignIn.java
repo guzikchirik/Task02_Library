@@ -15,7 +15,7 @@ public class SignIn implements Command {
 		String response = null;
 		System.out.println(login);
 		System.out.println(password);
-		System.out.println(response);
+//		System.out.println(response);
 		ServiceFactory serviceFactory = ServiceFactory.getInstance();
 		ClientService clientService = serviceFactory.getClientService();
 		try {
@@ -23,7 +23,7 @@ public class SignIn implements Command {
 			response = "Welcom!";
 		} catch (ServiceException e) {
 			// TODO Write log
-			response = "Error duiring login procedure";
+			response = e.getMessage();
 		}
 				
 		return response;

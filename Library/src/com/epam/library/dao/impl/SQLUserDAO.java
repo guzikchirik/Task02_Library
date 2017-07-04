@@ -13,16 +13,12 @@ public class SQLUserDAO implements UserDAO {
 
 	@Override
 	public void singIn(String login, String password) throws DAOException{
-		String request = "SELECT `init_id`, `init_login`, `init_password` FROM `initialization`";
-//				+ "JOIN `m2m_books_authors` USING(`b_id`) "
-//				+ "JOIN `authors` USING(`a_id`) "
-//				+ "JOIN `m2m_books_genres` USING(`b_id`) "
-//				+ "JOIN `genres` USING(`g_id`)";	
+		String request = "SELECT `u_id`, `u_login` FROM `users`";	
 		ResultSet resultSet = dataBaseTools.getDBData(request);	
 		
 		try {
 			while(resultSet.next()){
-				if(login.equals(resultSet.getString(2))&&password.equals(resultSet.getString(3))){
+				if(login.equals(resultSet.getString(1))&&password.equals(resultSet.getString(2))){
 					System.out.println("true");
 				}else{
 					System.out.println("false");
@@ -37,11 +33,24 @@ public class SQLUserDAO implements UserDAO {
 	}
 
 	@Override
-	public void registration(User user) throws DAOException{
-		String query = "INSERT INTO `users` (`u_name`, `u_surname`, `u_access`) VALUES ('" + user.getName() +"', '" + user.getSurname() +"','U')";
-//		ResultSet resultSet = dataBaseTools.getDBData(request);	//TODO “ут скорее всего нужно сначала добавл€ть логин и пароль, а потом только им€ и фамилию юзера 
-		Integer affected_rows = this.dataBaseTools.changeDBData(query);
+	public void registration(User user) throws DAOException{	
 		
+		String request = "SELECT  `u_login`, `u_password` FROM `users`";
+		String query = "INSERT INTO `users` (`u_login`, `u_password`, `u_access`) VALUES ('"+ user.getLogin() +"', '" + user.getPassword() +"','U')";
+		ResultSet resultSet = dataBaseTools.getDBData(request);	//TODO “ут скорее всего нужно сначала добавл€ть логин и пароль, а потом только им€ и фамилию юзера 
+		try {
+			while(resultSet.next()){
+				if(user.getLogin().equals(resultSet.getString(1))){					
+					throw new DAOException("User with such login already exists!");
+				}else if(user.getPassword().equals(resultSet.getString(2))){
+					throw new DAOException("User with such password already exists!");
+				}				
+			}
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		}
+		
+		Integer affected_rows = this.dataBaseTools.changeDBData(query);
 		// ≈сли добавление прошло успешно...
 		if (affected_rows > 0)
 		{
@@ -51,6 +60,8 @@ public class SQLUserDAO implements UserDAO {
 		{
 			System.out.println(false);
 		}
+			
+		
 //		dataBaseTools.changeDBData(query);	
 		
 	}

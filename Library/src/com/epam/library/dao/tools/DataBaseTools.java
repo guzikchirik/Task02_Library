@@ -13,7 +13,7 @@ public class DataBaseTools {
 		
 		// Значение автоинкрементируемого первичного ключа, полученное после
 		// добавления новой записи.
-		private Integer last_insert_id = 0;
+		public Integer last_insert_id = 0;
 	
 	public static DataBaseTools getInstance(){
 		if (instance == null)

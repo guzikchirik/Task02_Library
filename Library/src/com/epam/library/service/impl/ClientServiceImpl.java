@@ -21,8 +21,7 @@ public class ClientServiceImpl implements ClientService {
 			UserDAO userDAO = daoObjectFactory.getUserDAO();
 			userDAO.singIn(login, password);
 		} catch (DAOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 
 	}
@@ -34,17 +33,16 @@ public class ClientServiceImpl implements ClientService {
 
 	@Override
 	public void registration(User user) throws ServiceException {
-		if(user.getName() == null || user.getSurname()== null || user.getName().isEmpty() || user.getSurname().isEmpty()){
+		if(user.getLogin() == null || user.getPassword()== null || user.getLogin().isEmpty() || user.getPassword().isEmpty()){		
 			throw new ServiceException("Wrong name or Surname");
-		}		
+		}				
 		
 		try {
 			DAOFactory daoObjectFactory = DAOFactory.getInstance();
 			UserDAO userDAO = daoObjectFactory.getUserDAO();
 			userDAO.registration(user);
 		} catch (DAOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
 		}
 
 	}

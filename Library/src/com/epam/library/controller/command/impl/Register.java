@@ -11,22 +11,22 @@ public class Register implements Command {
 	@Override
 	public String execute(String request) {
 		
-		String[] param = request.split(" ");
-		String name = param[1];
-		String surname = param[2];
+		String[] param = request.split(" ");		
+		String login = param[1];
+		String password = param[2];
 		String response = null;
-		user = new User(name,surname);
+		user = new User(login,password);
 		
-		System.out.println(name);
-		System.out.println(surname);
-		System.out.println(response);
+		System.out.println(login);
+		System.out.println(password);
+//		System.out.println(response);
 		ServiceFactory serviceFactory = ServiceFactory.getInstance();
 		ClientService clientService = serviceFactory.getClientService();
 		try {
 			clientService.registration(user);
 			response = "New USER added!";
 		} catch (ServiceException e) {
-			// TODO Write log
+			System.out.println(e.getMessage());
 			response = "Error duiring login procedure";
 		}
 				

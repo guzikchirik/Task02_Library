@@ -7,4 +7,5 @@ public interface BookDAO {
 	void addBook(Book book) throws DAOException;
 	void deleteBook(long idBook) throws DAOException;
 	void delete(Book book) throws DAOException;
+	void showAllBooks() throws DAOException;
 }
